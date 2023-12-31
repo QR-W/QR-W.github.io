@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>长沙之旅 | qr&#39;s home</title>
+    <title>qr&#39;s home</title>
     <meta name="author" content="wqr" />
     <meta name="description" content="欢迎来到我们的秘密基地！" />
     <meta name="keywords" content="" />
@@ -36,9 +36,7 @@
 
 
 
-
-
-
+<script src="/js/lib/home.js"></script>
 
 <link rel="stylesheet" href="/css/main.css" />
 
@@ -148,46 +146,105 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div class="article">
-    <div>
-        <h1>长沙之旅</h1>
+            <div id="home-head">
+    <div id="home-background" ref="homeBackground" data-images="/images/background.jpg"></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>qr&#39;s home</h1>
+                <h3>with 菌子</h3>
+                <h5>欢迎来到我们的秘密基地！</h5>
+            </div>
+        </span>
     </div>
-    <div class="info">
+</div>
+<div id="home-posts-wrap" true ref="homePostsWrap">
+    <div id="home-posts">
+        
+
+<div class="post">
+    <a href="/2023/10/09/%E7%9B%AE%E5%89%8D%E5%8F%AF%E5%85%AC%E5%BC%80%E7%9A%84%E6%83%85%E6%8A%A5/">
+        <h2 class="post-title">目前可公开的情报</h2>
+    </a>
+    <div class="category-and-date">
+        
         <span class="date">
             <span class="icon">
                 <i class="fa-solid fa-calendar fa-fw"></i>
             </span>
-            2023/10/13
+            2023/10/9
         </span>
         
         
-        <span class="tags">
-            <span class="icon">
-                <i class="fa-solid fa-tags fa-fw"></i>
-            </span>
+    </div>
+    <div class="description">
+        <div class="content" v-pre>
             
+            <h4 id="Define：qr猫猫博客分博，域名里两个人的秘密基地。"><a href="#Define：qr猫猫博客分博，域名里两个人的秘密基地。" class="headerlink" title="Define：qr猫猫博客分博，域名里两个人的秘密基地。"></a><strong>Define</strong>：qr猫猫博客分博，域名里两个人的秘密基地。</h4><p><img src="/2023/10/09/%E7%9B%AE%E5%89%8D%E5%8F%AF%E5%85%AC%E5%BC%80%E7%9A%84%E6%83%85%E6%8A%A5/kolo.JPG"></p>
+<h4 id="灵感form："><a href="#灵感form：" class="headerlink" title="灵感form："></a>灵感<strong>form</strong>：</h4><h5 id="第一次接触前端居然是为了给某菌写告别网页，嗯，我可能是有点理工男的浪漫在身上。"><a href="#第一次接触前端居然是为了给某菌写告别网页，嗯，我可能是有点理工男的浪漫在身上。" class="headerlink" title="第一次接触前端居然是为了给某菌写告别网页，嗯，我可能是有点理工男的浪漫在身上。"></a>第一次接触前端居然是为了给某菌写告别网页，嗯，我可能是有点<del>理工男</del>的浪漫在身上。</h5><h4 id="BOSS：qr喵喵；小兵：菌子"><a href="#BOSS：qr喵喵；小兵：菌子" class="headerlink" title="BOSS：qr喵喵；小兵：菌子"></a><strong>BOSS</strong>：qr喵喵；<strong>小兵</strong>：菌子</h4><h4 id="目前需要攻克的难关："><a href="#目前需要攻克的难关：" class="headerlink" title="目前需要攻克的难关："></a>目前需要攻克的<strong>难关</strong>：</h4><h5 id="五星级：好多大人，一些朋友"><a href="#五星级：好多大人，一些朋友" class="headerlink" title="五星级：好多大人，一些朋友"></a>五星级：好多大人，一些朋友</h5><h5 id="四星级：800km"><a href="#四星级：800km" class="headerlink" title="四星级：800km"></a>四星级：800km</h5><h5 id="三星级：困困，饿饿，卷卷"><a href="#三星级：困困，饿饿，卷卷" class="headerlink" title="三星级：困困，饿饿，卷卷"></a>三星级：困困，饿饿，卷卷</h5><h4 id="碎碎念纯享版"><a href="#碎碎念纯享版" class="headerlink" title="碎碎念纯享版"></a>碎碎念纯享版</h4><p><u>“记录生活”</u>，经常有人教我这么做，说是如此便可以收获金点子，也能有很多的感悟，多年之后打开，还是一段回忆和惊喜。</p>
+<p>细细想来，从小学老师教写日记开始，我就对“记录生活”这件事持怀疑态度，我也并非对生活无感，只是如流沙滑于心间，不曾有风景留在我的记忆里。</p>
+<p>时到今日，21岁之际，我想慢慢尝试一些曾经觉得很无聊很没有意义的事情，不知后事如何，但这样或许能抓住一些转瞬即逝的感受，留住一些生活的小小碎片，或喜或悲，我也想以第三人称审视看看组成我的部分都是怎么样的呢。</p>
+<p>不知会更新多久，21岁射出的箭，不知会在未来哪天正中靶心呢？也是一种期待。</p>
+<h4 id="by-qr-w"><a href="#by-qr-w" class="headerlink" title="by qr.w"></a>by qr.w</h4>
             
-            <span class="tag">
-                
-                <a href="/tags/travel/" style="color: #00bcd4">travel</a>
-            </span>
+        </div>
+    </div>
+    <div class="post-tags">
+        
+        <span class="icon">
+            <i class="fa-solid fa-tags fa-fw"></i>
+        </span>
+        
+        
+        
+        <span class="tag">
             
+            <a href="/tags/feeling/" style="color: #00bcd4">feeling</a>
         </span>
         
     </div>
+    <a href="/2023/10/09/%E7%9B%AE%E5%89%8D%E5%8F%AF%E5%85%AC%E5%BC%80%E7%9A%84%E6%83%85%E6%8A%A5/" class="go-post">阅读全文</a>
+</div>
+
+
+        <div class="page-current">
     
-    <div class="content" v-pre>
-        <h4 id="再次相见，人生中一段无比轻松的时光。如果上天不奖励我们的话，我们就自己来。"><a href="#再次相见，人生中一段无比轻松的时光。如果上天不奖励我们的话，我们就自己来。" class="headerlink" title="再次相见，人生中一段无比轻松的时光。如果上天不奖励我们的话，我们就自己来。"></a>再次相见，人生中一段无比轻松的时光。如果上天不奖励我们的话，我们就自己来。</h4><p><img src="/2023/10/13/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/%E8%8A%B1%E5%92%8C%E8%8F%8C%E5%AD%90.JPG"></p>
-<p><img src="/2023/10/13/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/%E6%91%84%E5%BD%B1%E9%A6%86.JPG"></p>
-<p><img src="/2023/10/13/%E9%95%BF%E6%B2%99%E4%B9%8B%E6%97%85/%E8%83%8C%E5%BD%B1.JPG"></p>
+    <a class="page-num" href="/">
+        <i class="fa-solid fa-caret-left fa-fw"></i>
+    </a>
+    <a class="page-num" href="/">1</a>
+    <span class="page-omit">...</span>
+    
+    <span class="current">2</span>
+    
+    
+    
+    
+</div>
 
     </div>
     
-    
-    
-    
-    
-    
+    <div id="home-card">
+        <div id="card-style">
+    <div id="card-div">
+        <div class="avatar">
+            <img src="/images/avatar.jpg" alt="avatar" />
+        </div>
+        <div class="name">wqr</div>
+        <div class="description">
+            <p>你好～欢迎来到我的秘密基地！<br>哦，是我们的秘密基地！</p>
+
+        </div>
+        
+        
+    </div>
+</div>
+
+    </div>
     
 </div>
 
@@ -219,12 +276,6 @@
         
     </div>
     <script src="/js/main.js"></script>
-    
-    
-
-
-
-
     
 </body>
 </html>
