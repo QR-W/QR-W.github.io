@@ -19,27 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qr-w.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。">
+    <meta name="description" content="给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。 请你将两个数相加，并以相同形式返回一个表示和的链表。 方法一：模拟思路与算法由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。 我们同时遍历两个链表，逐位计算它们的和，并与当前位置的进位值相加。具体而言，如果当前两个链表处相应位置的数字为 n">
 <meta property="og:type" content="article">
-<meta property="og:title" content="206.反转链表">
-<meta property="og:url" content="https://qr-w.github.io/2025/01/16/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/index.html">
+<meta property="og:title" content="2.两数相加">
+<meta property="og:url" content="https://qr-w.github.io/2025/01/17/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/index.html">
 <meta property="og:site_name" content="wqr的沉淀小窝">
-<meta property="og:description" content="给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。">
+<meta property="og:description" content="给你两个 非空 的链表，表示两个非负的整数。它们每位数字都是按照 逆序 的方式存储的，并且每个节点只能存储 一位 数字。 请你将两个数相加，并以相同形式返回一个表示和的链表。 方法一：模拟思路与算法由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。 我们同时遍历两个链表，逐位计算它们的和，并与当前位置的进位值相加。具体而言，如果当前两个链表处相应位置的数字为 n">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-01-16T06:32:04.000Z">
-<meta property="article:modified_time" content="2025-01-17T04:09:45.967Z">
+<meta property="article:published_time" content="2025-01-17T06:38:07.000Z">
+<meta property="article:modified_time" content="2025-01-17T06:41:37.383Z">
 <meta property="article:author" content="wang qianru">
 <meta property="article:tag" content="链表">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://qr-w.github.io/2025/01/16/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+<link rel="canonical" href="https://qr-w.github.io/2025/01/17/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://qr-w.github.io/2025/01/16/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/","path":"2025/01/16/206-反转链表/","title":"206.反转链表"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://qr-w.github.io/2025/01/17/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/","path":"2025/01/17/2-两数相加/","title":"2.两数相加"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>206.反转链表 | wqr的沉淀小窝</title>
+<title>2.两数相加 | wqr的沉淀小窝</title>
   
 
 
@@ -112,7 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.</span> <span class="nav-text">方法一：迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E9%80%92%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">方法二：递归</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E6%A8%A1%E6%8B%9F"><span class="nav-number">1.</span> <span class="nav-text">方法一：模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%8E%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">思路与算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -163,7 +163,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://qr-w.github.io/2025/01/16/206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://qr-w.github.io/2025/01/17/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -176,12 +176,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="206.反转链表 | wqr的沉淀小窝">
+      <meta itemprop="name" content="2.两数相加 | wqr的沉淀小窝">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          206.反转链表
+          2.两数相加
         </h1>
 
         <div class="post-meta-container">
@@ -191,15 +191,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2025-01-16 14:32:04" itemprop="dateCreated datePublished" datetime="2025-01-16T14:32:04+08:00">2025-01-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-01-17 12:09:45" itemprop="dateModified" datetime="2025-01-17T12:09:45+08:00">2025-01-17</time>
+      <time title="创建时间：2025-01-17 14:38:07 / 修改时间：14:41:37" itemprop="dateCreated datePublished" datetime="2025-01-17T14:38:07+08:00">2025-01-17</time>
     </span>
 
   
@@ -211,29 +205,14 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
-<span id="more"></span>
+    <div class="post-body" itemprop="articleBody"><p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<h3 id="方法一：模拟"><a href="#方法一：模拟" class="headerlink" title="方法一：模拟"></a>方法一：模拟</h3><h4 id="思路与算法"><a href="#思路与算法" class="headerlink" title="思路与算法"></a>思路与算法</h4><p>由于输入的两个链表都是逆序存储数字的位数的，因此两个链表中同一位置的数字可以直接相加。</p>
+<p>我们同时遍历两个链表，逐位计算它们的和，并与当前位置的进位值相加。具体而言，如果当前两个链表处相应位置的数字为 n1,n2，进位值为 carry，则它们的和为 n1+n2+carry；其中，答案链表处相应位置的数字为 (n1+n2+carry)mod10，而新的进位值为 （n1+n2+carry）&#x2F;10。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="keyword">function</span>(<span class="params">l1, l2</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> head = <span class="literal">null</span>, tail = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> carry = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (l1 || l2) &#123;</span><br><span class="line">        <span class="keyword">const</span> n1 = l1 ? l1.<span class="property">val</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">const</span> n2 = l2 ? l2.<span class="property">val</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">const</span> sum = n1 + n2 + carry;</span><br><span class="line">        <span class="keyword">if</span> (!head) &#123;</span><br><span class="line">            head = tail = <span class="keyword">new</span> <span class="title class_">ListNode</span>(sum % <span class="number">10</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            tail.<span class="property">next</span> = <span class="keyword">new</span> <span class="title class_">ListNode</span>(sum % <span class="number">10</span>);</span><br><span class="line">            tail = tail.<span class="property">next</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        carry = <span class="title class_">Math</span>.<span class="title function_">floor</span>(sum / <span class="number">10</span>);</span><br><span class="line">        <span class="keyword">if</span> (l1) &#123;</span><br><span class="line">            l1 = l1.<span class="property">next</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (l2) &#123;</span><br><span class="line">            l2 = l2.<span class="property">next</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (carry &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        tail.<span class="property">next</span> = <span class="keyword">new</span> <span class="title class_">ListNode</span>(carry);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h4 id="方法一：迭代"><a href="#方法一：迭代" class="headerlink" title="方法一：迭代"></a>方法一：迭代</h4><p>假设链表为 <code>1→2→3→∅</code>，我们想要把它改成<code> ∅←1←2←3</code>。</p>
-<p>在遍历链表时，将当前节点的 next 指针改为指向前一个节点。由于节点没有引用其前一个节点，因此必须事先存储其前一个节点。在更改引用之前，还需要存储后一个节点。最后返回新的头引用。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="keyword">function</span>(<span class="params">head</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> prev = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">let</span> curr = head;</span><br><span class="line">    <span class="keyword">while</span> (curr) &#123;</span><br><span class="line">        <span class="keyword">const</span> next = curr.<span class="property">next</span>;</span><br><span class="line">        curr.<span class="property">next</span> = prev;</span><br><span class="line">        prev = curr;</span><br><span class="line">        curr = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p><strong>复杂度分析</strong></p>
-<ul>
-<li><p>时间复杂度：<em>O</em>(<em>n</em>)，其中 <em>n</em> 是链表的长度。需要遍历链表一次。</p>
-</li>
-<li><p>空间复杂度：<em>O</em>(1)。</p>
-</li>
-</ul>
-<h4 id="方法二：递归"><a href="#方法二：递归" class="headerlink" title="方法二：递归"></a>方法二：递归</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="keyword">function</span>(<span class="params">head</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span> || head.<span class="property">next</span> == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> newHead = <span class="title function_">reverseList</span>(head.<span class="property">next</span>);</span><br><span class="line">    head.<span class="property">next</span>.<span class="property">next</span> = head;</span><br><span class="line">    head.<span class="property">next</span> = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> newHead;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p><strong>复杂度分析</strong></p>
-<ul>
-<li><p>时间复杂度：<code>O(n)</code>，其中 n 是链表的长度。需要对链表的每个节点进行反转操作。</p>
-</li>
-<li><p>空间复杂度：<code>O(n)</code>，其中 n 是链表的长度。空间复杂度主要取决于递归调用的栈空间，最多为 n 层。</p>
-</li>
-</ul>
 
     </div>
 
@@ -250,11 +229,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2025/01/17/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/" rel="prev" title="21.合并两个有序链表">
+                  <i class="fa fa-angle-left"></i> 21.合并两个有序链表
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/01/16/160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/" rel="next" title="160.相交链表">
-                  160.相交链表 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
