@@ -1,6 +1,6 @@
-# WQR / 故事集
+# CC / 故事集
 
-QR-W 的 GitHub Pages 小说站。当前收录《永逝之日》和《An Unfinished Hero Story》。
+CC 的 GitHub Pages 小说站。当前收录《永逝之日》和《An Unfinished Hero Story》。
 
 首页与作品页采用星空、极光、拱门封面和轻微视差。首页可切换两部作品的世界与光色，右上角可关闭动效；遵循系统的减少动态效果设置，并在页面进入后台后暂停星空绘制。阅读页使用独立的舒适排版。
 

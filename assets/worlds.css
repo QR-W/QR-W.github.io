@@ -252,3 +252,6 @@
 
 html:has(.worlds[data-motion="on"]) { scroll-behavior: smooth; }
 @media(prefers-reduced-motion:reduce) { html:has(.worlds) { scroll-behavior: auto; } }
+
+.worlds .brand-mark { font-size: 21px; letter-spacing: -.09em; padding-right: 2px; }
+@media(max-width:720px) { .worlds .brand-mark { font-size: 17px; } }

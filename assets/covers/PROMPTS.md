@@ -22,3 +22,13 @@ Exact typography: large highly readable refined serif title in the upper half, a
 "HERO STORY"
 Small author credit "QR-W" near the bottom. These are the ONLY words. Title is the main typographic focus and is spelled exactly. No subtitle, no chapter name, no endorsements, no logos, no invented quotes. Keep everything inside generous 10 percent safe margins. The image is the actual complete front cover edge to edge, with no perspective mockup, no external frame, no tabletop. Make the title and visual emblem a unified polished book design, original and quietly powerful.
 
+
+
+## CC author-credit update
+
+Built-in image_gen edit mode, applied separately to each original v1 PNG.
+Outputs: `yongshi-cover-cc.png` and `unfinished-hero-cover-cc.png`; JPEG copies are used on the site. Original v1 files are retained.
+
+Prompt (both covers):
+
+Use case: text-localization. Edit target: the attached complete book cover. Change ONLY the small author credit at the bottom from "QR-W" to exactly "CC" (two uppercase Latin C letters), centered in the same location, same serif typography, size and color. Preserve the entire original illustration, title lettering, layout, colors, textures, ornaments, margins and 1024x1536 portrait dimensions exactly. Do not redraw or reinterpret any other part. The user loves this cover; this is a surgical author-name replacement only.
