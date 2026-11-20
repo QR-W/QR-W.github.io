@@ -19,17 +19,21 @@ def write(path, text):
 def header(active='library'):
     return f'''<a class="skip" href="#main">跳到正文</a>
     <header class="site-header"><a class="brand" href="/" aria-label="WQR 故事集首页"><span class="brand-mark">W</span><span>WQR <span class="brand-sub">/ 故事集</span></span></a>
-    <nav aria-label="主导航"><a href="/#stories" {'aria-current="page"' if active == 'library' else ''}>作品</a><a href="/#about">关于</a><a href="https://github.com/QR-W" class="github" rel="me">GitHub</a></nav></header>'''
+    <nav aria-label="主导航"><a href="/#stories" {'aria-current="page"' if active == 'library' else ''}>作品</a><a href="/#about">关于</a><a href="https://github.com/QR-W" class="github" rel="me">GitHub</a><button type="button" class="effects-toggle" id="effects-toggle" aria-pressed="true" hidden>动效</button></nav></header>'''
 
 def footer():
     return '<footer class="site-footer"><a class="footer-brand" href="/">WQR / 故事集</a><span>文字与想象，在这里相遇。</span><span>© 2026 QR-W</span></footer>'
 
 def page(title, description, path, body, body_attrs='', extra=''):
+    if 'class="reader"' not in body_attrs:
+        body_attrs = 'class="worlds"' + (' data-world="amber"' if '/unfinished-hero/' in path else ' data-world="ice"')
+        extra += '<link rel="stylesheet" href="/assets/worlds.css"><script src="/assets/worlds.js" defer></script>'
+        body = '<div class="atmosphere" aria-hidden="true"><div class="aurora aurora-one"></div><div class="aurora aurora-two"></div><canvas id="starfield"></canvas><div class="pointer-glow"></div></div>' + body
     return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · WQR 故事集</title><meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{BASE}{path}"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:type" content="website"><meta property="og:url" content="{BASE}{path}">
-<meta name="theme-color" content="#f7f8fa"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="{'#09111c' if 'worlds' in body_attrs else '#f7f8fa'}"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css"><script src="/assets/site.js" defer></script>{extra}</head>
 <body {body_attrs}>{body}</body></html>'''
 
@@ -55,15 +59,19 @@ urls = ['/']
 
 cards = ''
 for book in books:
-    cards += f'''<article class="book-card {book['slug']}"><a class="cover-link" href="{book_url(book)}" aria-label="查看《{esc(book['title'])}》"><img src="{book['cover']}" alt="{esc(book['title'])}的故事场景" width="900" height="560"><span class="cover-caption">{esc(book['genre'])}</span></a>
+    cards += f'''<article class="book-card {book['slug']}" data-tilt><a class="cover-link" href="{book_url(book)}" aria-label="查看《{esc(book['title'])}》"><img src="{book['cover']}" alt="{esc(book['title'])}的故事场景" width="900" height="560"><span class="cover-caption">{esc(book['genre'])}</span></a>
     <div class="book-meta"><span>{esc(book['subtitle'])}</span><span>{book['count_label']}</span></div>
     <h3><a href="{book_url(book)}">{esc(book['title'])}</a></h3><p>{esc(book['description'])}</p>
     <a class="text-link" href="{book_url(book)}">走进故事 <span aria-hidden="true">＋</span></a></article>'''
 
-home = header() + f'''<main id="main"><section class="intro shell"><div><p class="eyebrow">FICTION & IMAGINATION</p><h1>故事未完，<br><span>请翻下一页。</span></h1></div><div class="intro-note"><span class="small-star" aria-hidden="true">✦</span><p>关于时间，关于相遇，<br>关于那些仍在继续的故事。</p><span class="note-sign">QR-W 的小说收藏</span></div></section>
-<section class="library shell" id="stories" aria-labelledby="stories-heading"><div class="section-heading"><h2 id="stories-heading">书架</h2><p>两部作品 · 两个世界</p></div><div class="book-grid">{cards}</div></section>
-<section class="about shell" id="about"><p class="eyebrow">BETWEEN THE LINES</p><div><h2>给想象一个停留的地方。</h2><p>这里收录 QR-W 的小说与同人创作。<br>选一本书，从第一行开始，也可以回到上次停下的地方。</p></div><a class="text-link" href="#stories">回到书架 <span aria-hidden="true">＋</span></a></section></main>''' + footer()
-write('index.html',page('故事未完，请翻下一页','QR-W 的小说书架：《永逝之日》与 An Unfinished Hero Story。','/',home))
+home = header() + f'''<main id="main"><section class="world-hero shell" aria-labelledby="hero-title">
+<div class="hero-copy"><p class="eyebrow"><span class="tiny-sigil" aria-hidden="true">✦</span> WQR · WORLDS BETWEEN WORDS</p><h1 id="hero-title">在故事里，<br><em>越过世界边界。</em></h1><p class="hero-description">时间的尽头，未完的传说。<br>翻开书页，走进另一种可能。</p><div class="hero-actions"><a class="button primary" id="hero-read" href="/novels/yongshi/">进入《永逝之日》</a><a class="hero-library" href="#stories">探索全部作品 <span aria-hidden="true">＋</span></a></div><div class="world-switcher" role="group" aria-label="选择故事世界"><button type="button" data-world-choice="ice" aria-pressed="true"><span class="world-dot" aria-hidden="true"></span>极北永夜</button><button type="button" data-world-choice="amber" aria-pressed="false"><span class="world-dot" aria-hidden="true"></span>永恒卡美隆</button></div></div>
+<div class="portal-stage" aria-label="故事世界预览"><div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div><div class="portal-halo" aria-hidden="true"></div><div class="world-portal" data-tilt><div class="portal-images"><img class="portal-image is-active" data-world-image="ice" src="{books[0]['cover']}" alt="极光下的水晶高塔" width="1122" height="1402" fetchpriority="high"><img class="portal-image" data-world-image="amber" src="{books[1]['cover']}" alt="河畔的两座卡美隆" width="1774" height="887" aria-hidden="true"></div><div class="portal-shimmer" aria-hidden="true"></div><div class="portal-caption" aria-live="polite"><span id="portal-subtitle">THE CRYSTAL TOWER</span><strong id="portal-title">永逝之日</strong><span id="portal-detail">时间之外，极北永夜。</span></div></div><span class="orbit-star star-one" aria-hidden="true">✦</span><span class="orbit-star star-two" aria-hidden="true">✧</span><span class="portal-side-label" aria-hidden="true">IMAGINATION HAS NO BORDERS</span></div>
+<div class="hero-bottom"><span>两部作品 / 两个世界</span><a href="#stories">向下探索 <span class="scroll-line" aria-hidden="true"></span></a><span>原创 & 同人创作</span></div></section>
+<section class="library shell" id="stories" aria-labelledby="stories-heading"><div class="section-heading"><div><p class="eyebrow">CHOOSE YOUR WORLD</p><h2 id="stories-heading">选一个世界，启程。</h2></div><p>每一次翻页，都是新的相遇。</p></div><div class="book-grid">{cards}</div></section>
+<section class="between-worlds shell" aria-label="故事插画"><div class="fragment-art"><img src="/assets/yongshi/illustration-01.jpg" alt="伊瑟莉娅与初生的塞尔薇娅" width="1402" height="1122" loading="lazy"></div><div class="fragment-copy"><p class="eyebrow">A MOMENT OUTSIDE OF TIME</p><blockquote>“去书写你自己的故事。”</blockquote><p>——《永逝之日》· 序章</p><a class="text-link" href="/novels/yongshi/chapter-1/">从这一刻开始 <span aria-hidden="true">＋</span></a></div></section>
+<section class="about shell" id="about"><p class="eyebrow">BEYOND THE LAST PAGE</p><div><h2>故事未完，世界仍在生长。</h2><p>这里收录 QR-W 的小说与同人创作。<br>关于时间、相遇，以及不愿落幕的故事。</p></div><a class="text-link" href="#stories">回到书架 <span aria-hidden="true">＋</span></a></section></main>''' + footer()
+write('index.html',page('在故事里，越过世界边界','QR-W 的小说书架：《永逝之日》与 An Unfinished Hero Story。','/',home))
 
 def render_text(text, book):
     blocks = re.split(r'\n\s*\n',text.strip())
@@ -89,7 +97,7 @@ def render_text(text, book):
 for book in books:
     slug=book['slug']; url=book_url(book); urls.append(url)
     toc=''.join(f'<li><a href="{chapter_url(book,i)}"><span>{esc(ch["title"])}</span><span class="toc-action">阅读</span></a></li>' for i,ch in enumerate(book['chapters']))
-    body=header() + f'''<main id="main" class="book-detail shell"><a class="breadcrumb" href="/#stories">书架 / {esc(book['genre'])}</a><div class="book-intro"><div class="detail-art"><img src="{book['cover']}" alt="{esc(book['title'])}的故事场景" width="800" height="1000"></div><div class="detail-copy"><p class="eyebrow">{esc(book['genre'])}</p><h1>{esc(book['title'])}</h1><p class="detail-subtitle">{esc(book['subtitle'])}</p><p class="detail-description">{esc(book['description'])}</p><div class="book-facts"><span>{book['count_label']}</span><span>{len(book['chapters'])} 个章节</span><span>更新于 {book['updated']}</span></div><div class="book-actions"><a class="button primary" href="{chapter_url(book,0)}">开始阅读</a><a class="button resume" data-resume="{slug}" href="{chapter_url(book,0)}" hidden>继续阅读</a><a class="button subtle" href="#contents">查看目录</a></div><blockquote>{esc(book['quote'])}</blockquote></div></div>
+    body=header() + f'''<main id="main" class="book-detail shell"><a class="breadcrumb" href="/#stories">书架 / {esc(book['genre'])}</a><div class="book-intro"><div class="detail-art" data-tilt><img src="{book['cover']}" alt="{esc(book['title'])}的故事场景" width="800" height="1000"></div><div class="detail-copy"><p class="eyebrow">{esc(book['genre'])}</p><h1>{esc(book['title'])}</h1><p class="detail-subtitle">{esc(book['subtitle'])}</p><p class="detail-description">{esc(book['description'])}</p><div class="book-facts"><span>{book['count_label']}</span><span>{len(book['chapters'])} 个章节</span><span>更新于 {book['updated']}</span></div><div class="book-actions"><a class="button primary" href="{chapter_url(book,0)}">开始阅读</a><a class="button resume" data-resume="{slug}" href="{chapter_url(book,0)}" hidden>继续阅读</a><a class="button subtle" href="#contents">查看目录</a></div><blockquote>{esc(book['quote'])}</blockquote></div></div>
     <section id="contents" class="contents"><div class="section-heading"><h2>作品目录</h2><p>{book['count_label']}</p></div><ol class="toc-list">{toc}</ol></section></main>''' + footer()
     write(f'novels/{slug}/index.html',page(book['title'],book['description'],url,body))
     for i,ch in enumerate(book['chapters']):

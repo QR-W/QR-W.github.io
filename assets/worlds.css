@@ -1,0 +1,205 @@
+/* The library is a portal; the reader keeps its own quiet palette. */
+.worlds {
+  --bg: #080f1a; --surface: #111e2d; --text: #e9f1f7;
+  --muted: #a0b2c2; --line: #a4cce023; --accent: #9edcfa;
+  --glow: 104, 191, 238; --secondary: 111, 84, 188;
+  background: var(--bg); color: var(--text); color-scheme: dark;
+  overflow-x: clip;
+}
+.worlds[data-world="amber"] { --accent: #f1ce93; --glow: 226, 177, 96; --secondary: 113, 69, 55; }
+.worlds .site-header, .worlds main, .worlds .site-footer { position: relative; z-index: 1; }
+.worlds .site-header { height: 94px; border-color: var(--line); }
+.worlds .brand-mark { border-color: #b3d6ea60; color: var(--accent); box-shadow: inset 0 0 18px #9ac8ed0b; }
+.worlds .brand-sub, .worlds .github { color: #a0b2c2; }
+.worlds .site-header nav { gap: 32px; }
+.effects-toggle { border: 1px solid var(--line); border-radius: 30px; padding: 7px 13px; font-size: 12px; background: #ffffff05; color: var(--muted); }
+.effects-toggle[aria-pressed="true"] { border-color: #9edcfa60; color: var(--accent); }
+.effects-toggle:disabled { cursor: default; }
+.atmosphere { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(ellipse at 72% 30%, rgba(var(--glow), .07), transparent 60%); }
+.atmosphere canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .65; }
+.aurora { position: absolute; width: 60vw; height: 80vh; opacity: .16; filter: blur(75px); border-radius: 50%; transform: rotate(-35deg); will-change: transform; }
+.aurora-one { top: -35vh; right: -7vw; background: radial-gradient(ellipse, rgba(var(--glow), .8), transparent 70%); animation: aurora-drift 18s ease-in-out infinite alternate; }
+.aurora-two { top: 20vh; left: -40vw; background: radial-gradient(ellipse, rgba(var(--secondary), .7), transparent 70%); animation: aurora-drift 22s ease-in-out infinite alternate-reverse; }
+.pointer-glow { position: absolute; inset: 0; background: radial-gradient(360px circle at var(--pointer-x, 75%) var(--pointer-y, 30%), rgba(var(--glow), .065), transparent 100%); }
+.world-hero { min-height: min(820px, calc(100svh - 94px)); position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: center; padding-block: 65px 90px; }
+.hero-copy { position: relative; z-index: 3; }
+.worlds .eyebrow { color: var(--accent); font-size: 11px; letter-spacing: .18em; }
+.hero-copy .eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+.tiny-sigil { font-size: 19px; text-shadow: 0 0 18px var(--accent); }
+.hero-copy h1 { font-family: "Songti SC", "STSong", Georgia, serif; font-size: clamp(39px, 4.7vw, 66px); font-weight: 400; line-height: 1.55; letter-spacing: .025em; margin: 0; }
+.hero-copy h1 em { font-style: normal; color: #d3ebfa; background: linear-gradient(110deg, #f4f8fa 5%, var(--accent) 65%, #b2a5d2); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-description { font-size: 16px; color: var(--muted); line-height: 2; margin: 26px 0 34px; }
+.hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.worlds .button { background: #14253680; border-color: #9dc9de44; color: var(--text); border-radius: 3px; }
+.worlds .button.primary { background: linear-gradient(120deg, rgba(var(--glow), .24), rgba(var(--glow), .09)); border-color: rgba(var(--glow), .6); color: #f4f7fb; box-shadow: 0 0 24px rgba(var(--glow), .09), inset 0 0 20px rgba(var(--glow), .04); padding: 15px 26px; }
+.worlds .button.primary:hover { background: rgba(var(--glow), .27); box-shadow: 0 0 35px rgba(var(--glow), .2); filter: none; }
+.hero-library { font-size: 14px; color: #b6c8d5; display: flex; align-items: center; gap: 12px; }
+.hero-library span { color: var(--accent); font-size: 20px; }
+.world-switcher { display: flex; gap: 24px; margin-top: 46px; }
+.world-switcher button { border: 0; border-bottom: 1px solid transparent; padding: 10px 0; color: #91a3b4; background: none; font-size: 12px; display: flex; align-items: center; gap: 9px; transition: color .3s, border-color .3s; }
+.world-switcher button[aria-pressed="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.world-dot { width: 6px; height: 6px; border: 1px solid currentColor; border-radius: 50%; }
+.world-switcher button[aria-pressed="true"] .world-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
+.portal-stage { position: relative; width: 100%; min-width: 0; aspect-ratio: 1; display: grid; place-items: center; perspective: 1100px; }
+.world-portal { position: relative; width: 76%; aspect-ratio: .73; border-radius: 48% 48% 5px 5px; border: 1px solid rgba(var(--glow), .65); box-shadow: 0 0 55px rgba(var(--glow), .12), 0 40px 90px #0008; background: #102334; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out, box-shadow .5s; overflow: hidden; }
+.portal-images { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.portal-images:after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #061322f5 0, #07132055 30%, transparent 62%), linear-gradient(90deg, #07132025, transparent 40%, #07132020); }
+.portal-image { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transform: scale(1.1); transition: opacity 1s, transform 5s ease-out; }
+.portal-image.is-active { opacity: 1; transform: scale(1.01); }
+.portal-image[data-world-image="ice"] { object-position: 50% 52%; }
+.portal-image[data-world-image="amber"] { object-position: 58% 50%; }
+.portal-caption { position: absolute; z-index: 2; bottom: 30px; left: 28px; right: 20px; display: flex; flex-direction: column; gap: 9px; }
+.portal-caption>span:first-child { font-size: 10px; letter-spacing: .19em; color: #c7deed; }
+.portal-caption strong { font: 400 30px/1.25 "Songti SC", Georgia, serif; color: #f1f6fb; }
+.portal-caption>span:last-child { font-size: 12px; color: #bed0df; line-height: 1.8; }
+.portal-halo { width: 100%; aspect-ratio: 1; position: absolute; border-radius: 50%; background: radial-gradient(ellipse, rgba(var(--glow), .12), transparent 64%); animation: halo-breathe 7s ease-in-out infinite alternate; }
+.orbit { position: absolute; width: 106%; aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(var(--glow), .17); transform: rotate(-30deg) scaleY(.78); }
+.orbit:before { content: ""; width: 8px; height: 8px; position: absolute; left: 16%; top: 12%; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px 3px rgba(var(--glow), .55); }
+.orbit-one { animation: orbit-turn 90s linear infinite; }
+.orbit-two { width: 115%; transform: rotate(37deg) scaleY(.8); border-style: dashed; opacity: .45; animation: orbit-turn 140s linear infinite reverse; }
+.orbit-star { position: absolute; color: var(--accent); text-shadow: 0 0 20px rgba(var(--glow), .7); animation: star-float 6s ease-in-out infinite alternate; }
+.star-one { left: 2%; top: 14%; font-size: 30px; }
+.star-two { right: 2%; bottom: 9%; font-size: 42px; animation-delay: -3s; }
+.portal-side-label { position: absolute; right: -24px; top: 25%; writing-mode: vertical-rl; font-size: 9px; letter-spacing: .25em; color: #8aa5b6; }
+.portal-shimmer { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(115deg, transparent 30%, #d0ecff10 45%, transparent 60%); transform: translateX(-110%); animation: portal-light 12s ease-in-out infinite; }
+.hero-bottom { position: absolute; bottom: 25px; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: .12em; color: #8fa3b4; }
+.hero-bottom a { display: flex; align-items: center; gap: 16px; }
+.scroll-line { display: inline-block; width: 1px; height: 30px; background: linear-gradient(var(--accent), transparent); transform-origin: top; animation: line-breathe 3s ease-in-out infinite; }
+.worlds .library { padding-top: 75px; scroll-margin-top: 25px; }
+.worlds .section-heading { align-items: end; border-color: var(--line); padding-bottom: 26px; margin-bottom: 36px; }
+.worlds .section-heading .eyebrow { margin-bottom: 13px; }
+.worlds .section-heading h2 { font-size: 32px; letter-spacing: .03em; }
+.worlds .section-heading>p { font-size: 12px; color: #91a8bb; }
+.worlds .book-grid { gap: 34px; perspective: 1500px; }
+.worlds .book-card { padding: 14px 14px 28px; border: 1px solid #92bed52d; border-radius: 5px; background: linear-gradient(140deg, #20374b55, #101b2980 75%); transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .35s ease-out, border-color .35s, box-shadow .35s; }
+.worlds .book-card:hover { border-color: #9edcfa70; box-shadow: 0 14px 60px #0004, 0 0 30px #9edcfa0b; }
+.worlds .book-card.unfinished-hero:hover { border-color: #edc28070; }
+.worlds .cover-link { border-radius: 2px; aspect-ratio: 1.5; }
+.worlds .cover-link:after { inset: 0; background: linear-gradient(0deg, #07101dd9, transparent 50%); border: 1px solid #ffffff0e; }
+.worlds .book-meta, .worlds .book-card h3, .worlds .book-card p, .worlds .book-card>.text-link { margin-left: 15px; margin-right: 15px; }
+.worlds .book-meta { color: #9bb2c6; font-size: 11px; }
+.worlds .book-card h3 { font-size: 30px; margin-top: 18px; margin-bottom: 16px; }
+.worlds .book-card p { color: #a5b9c9; font-size: 14px; }
+.worlds .text-link { color: var(--accent); border-color: #97c5df4a; }
+.worlds .book-card.unfinished-hero>.text-link, .worlds .book-card.unfinished-hero>.text-link span { color: #e7c796; }
+.between-worlds { margin-top: 100px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 70px; border-top: 1px solid var(--line); padding-top: 70px; }
+.fragment-art { position: relative; overflow: hidden; border-radius: 2px; }
+.fragment-art:after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 90px 20px #080f1a70; }
+.fragment-art img { width: 100%; height: 320px; object-fit: cover; }
+.fragment-copy blockquote { margin: 0 0 20px; font: 400 30px/1.8 "Songti SC", serif; }
+.fragment-copy>p:not(.eyebrow) { color: var(--muted); font-size: 13px; }
+.fragment-copy .text-link { margin-top: 23px; }
+.worlds .about { margin-top: 85px; border-color: var(--line); padding-top: 45px; }
+.worlds .about h2 { font-size: 24px; }
+.worlds .site-footer { border-color: var(--line); color: #8aa0b4; }
+.worlds .book-detail { padding-top: 28px; }
+.worlds .breadcrumb { color: #9db3c5; }
+.worlds .book-intro { gap: 90px; margin-block: 50px 90px; perspective: 1400px; }
+.worlds .detail-art { border: 1px solid rgba(var(--glow), .45); border-radius: 45% 45% 3px 3px; box-shadow: 0 0 70px rgba(var(--glow), .1), 0 25px 60px #0006; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out; }
+.worlds .detail-art img { aspect-ratio: .77; }
+.worlds .detail-copy h1 { color: #f0f6fb; text-shadow: 0 0 50px rgba(var(--glow), .15); }
+.worlds .detail-description { color: #b0c2d0; }
+.worlds .detail-copy blockquote { border-color: rgba(var(--glow), .5); color: var(--accent); }
+.worlds .book-facts { color: #a4bacb; }
+.worlds .contents { background: #0f1c2980; border: 1px solid var(--line); padding: 32px; border-radius: 4px; }
+.worlds .contents .section-heading h2 { font-size: 26px; }
+.worlds .toc-list a { color: #ccdbe6; padding-inline: 16px; border-radius: 2px; transition: background .25s, padding .25s; }
+.worlds .toc-list a:hover { background: rgba(var(--glow), .08); padding-left: 24px; color: var(--accent); }
+.worlds .toc-action { color: var(--accent); }
+.worlds .toc-list li { border-color: var(--line); }
+.worlds .toc-list li:last-child { border: 0; }
+.worlds[data-motion="off"] *, .worlds[data-motion="off"] *:before, .worlds[data-motion="off"] *:after { animation: none !important; transition: none !important; }
+.worlds[data-motion="off"] [data-tilt] { transform: none !important; }
+.worlds[data-motion="off"] .pointer-glow { display: none; }
+@keyframes aurora-drift { to { transform: translate(10vw, 15vh) rotate(-10deg) scale(1.15); } }
+@keyframes halo-breathe { to { opacity: .5; transform: scale(.92); } }
+@keyframes orbit-turn { to { transform: rotate(330deg) scaleY(.78); } }
+@keyframes star-float { to { transform: translateY(-12px) rotate(20deg); opacity: .5; } }
+@keyframes line-breathe { 50% { transform: scaleY(.6); opacity: .4; } }
+@keyframes portal-light { 35%, 100% { transform: translateX(110%); } }
+@media(min-width:1600px) { .world-hero { min-height: 830px; } }
+@media(max-width:1050px) {
+  .world-hero { min-height: 700px; grid-template-columns: 1fr .9fr; gap: 10px; }
+  .hero-copy h1 { font-size: 45px; }
+  .hero-actions { gap: 20px; }
+  .hero-description { font-size: 14px; }
+  .hero-copy .eyebrow { font-size: 10px; }
+  .world-portal { width: 82%; }
+  .portal-caption { left: 20px; bottom: 22px; }
+  .portal-caption strong { font-size: 26px; }
+  .portal-side-label { right: -15px; }
+  .worlds .book-intro { gap: 45px; }
+  .between-worlds { gap: 35px; }
+  .fragment-copy blockquote { font-size: 25px; }
+}
+@media(max-width:720px) {
+  .worlds .site-header { height: 76px; }
+  .worlds .site-header nav { gap: 18px; }
+  .effects-toggle { padding: 6px 9px; font-size: 11px; }
+  .world-hero { grid-template-columns: 1fr; padding-top: 43px; padding-bottom: 65px; gap: 10px; min-height: 0; }
+  .hero-copy { text-align: center; }
+  .hero-copy .eyebrow { justify-content: center; font-size: 9px; letter-spacing: .12em; margin-bottom: 22px; }
+  .hero-copy h1 { font-size: clamp(31px, 8vw, 48px); line-height: 1.5; }
+  .hero-description { font-size: 14px; line-height: 1.8; margin: 20px 0 25px; }
+  .hero-actions { justify-content: center; gap: 20px; }
+  .worlds .button.primary { font-size: 13px; padding: 13px 18px; }
+  .hero-library { font-size: 12px; gap: 7px; }
+  .world-switcher { justify-content: center; margin-top: 22px; }
+  .world-switcher button { font-size: 11px; }
+  .portal-stage { width: 85%; margin: 38px auto 30px; max-width: 400px; aspect-ratio: .95; }
+  .world-portal { width: 82%; }
+  .portal-caption strong { font-size: 27px; }
+  .portal-caption>span:first-child { font-size: 9px; }
+  .portal-caption>span:last-child { font-size: 11px; }
+  .portal-side-label { right: -20px; font-size: 8px; }
+  .star-one { font-size: 24px; }
+  .star-two { font-size: 32px; }
+  .hero-bottom { bottom: 12px; font-size: 10px; letter-spacing: .03em; }
+  .hero-bottom>span:last-child { display: none; }
+  .worlds .library { padding-top: 45px; }
+  .worlds .section-heading { align-items: start; margin-bottom: 25px; }
+  .worlds .section-heading h2 { font-size: 25px; }
+  .worlds .section-heading>p { display: none; }
+  .worlds .eyebrow { font-size: 10px; }
+  .worlds .book-grid { gap: 25px; }
+  .worlds .book-card { padding: 10px 10px 24px; }
+  .worlds .book-meta, .worlds .book-card h3, .worlds .book-card p, .worlds .book-card>.text-link { margin-left: 10px; margin-right: 10px; }
+  .worlds .book-meta { font-size: 10px; }
+  .worlds .book-card h3 { font-size: 29px; }
+  .worlds .book-card p { font-size: 14px; line-height: 1.9; }
+  .between-worlds { margin-top: 55px; padding-top: 40px; grid-template-columns: 1fr; gap: 32px; }
+  .fragment-art img { height: 260px; }
+  .fragment-copy blockquote { font-size: 25px; }
+  .fragment-copy .eyebrow { margin-bottom: 18px; }
+  .worlds .about { margin-top: 50px; padding-top: 32px; }
+  .worlds .about h2 { font-size: 23px; }
+  .worlds .book-intro { margin-block: 25px 45px; gap: 34px; }
+  .worlds .detail-art { width: 85%; max-width: 360px; margin-inline: auto; }
+  .worlds .detail-art img { max-height: 440px; aspect-ratio: .83; }
+  .worlds .detail-copy h1 { font-size: 38px; }
+  .worlds .contents { padding: 22px 15px; }
+  .worlds .contents .section-heading { align-items: baseline; }
+  .worlds .toc-list a { padding-inline: 5px; font-size: 15px; }
+  .worlds .toc-list a:hover { padding-left: 10px; }
+  .aurora { filter: blur(45px); }
+}
+@media(max-width:360px) {
+  .worlds .site-header nav { gap: 12px; }
+  .worlds .brand { gap: 7px; font-size: 14px; }
+  .worlds .brand-sub { font-size: 11px; }
+  .worlds .brand-mark { width: 26px; height: 30px; font-size: 21px; }
+  .effects-toggle { padding: 5px 7px; }
+  .hero-actions { gap: 16px; }
+  .hero-library { font-size: 11px; }
+  .portal-caption strong { font-size: 23px; }
+  .portal-caption { left: 17px; bottom: 20px; }
+  .worlds .book-meta { flex-wrap: wrap; gap: 7px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .worlds *, .worlds *:before, .worlds *:after { animation: none !important; transition: none !important; }
+  .worlds [data-tilt] { transform: none !important; }
+  .pointer-glow { display: none; }
+}
+@media(hover:none) { .worlds [data-tilt] { transform: none !important; } .pointer-glow { display: none; } }
+/* Decorative orbital rings may leave their stage; clip them at the page edge. */
+.worlds main { overflow: hidden; }
