@@ -11,11 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BOOKS = [
     dict(slug='yongshi', title='永逝之日', source='永逝之日', genre='原创 · 奇幻',
-         subtitle='第一部', cover_index=1,
+         subtitle='第一部',
          description='在一颗没有昨天、也没有明天的星球上，时间因一滴泪而开始流动。塞尔薇娅的故事，自此展开。',
          quote='时间从这座高塔之外，继续向前。'),
     dict(slug='unfinished-hero', title='An Unfinished Hero Story', source='An Unfinished Hero Story',
-         genre='同人 · Supernatural', subtitle='Continuation / Eternal Camelot', cover_index=4,
+         genre='同人 · Supernatural', subtitle='Continuation / Eternal Camelot',
          description='图书馆里，一本坠落的书显现出一座地下堡垒。薇尔走进了 Sam、Dean 与 Castiel 尚未结束的故事。',
          quote='图书馆里从来没有风。'),
 ]
@@ -29,6 +29,14 @@ def main():
         source = args.source_root / book.pop('source')
         manuscript = source / (book['title'] + '.md')
         text = manuscript.read_text()
+        directory = ROOT / 'content' / book['slug']
+        existing = json.loads((directory/'book.json').read_text())
+        # A book cover is an editorial asset, independent of chapter illustrations.
+        book['cover'] = existing['cover']
+        book['cover_width'] = existing['cover_width']
+        book['cover_height'] = existing['cover_height']
+        if not (ROOT / book['cover'].lstrip('/')).is_file():
+            raise FileNotFoundError(book['cover'])
         asset_dir = ROOT / 'assets' / book['slug']
         asset_dir.mkdir(parents=True, exist_ok=True)
         images = []
@@ -54,8 +62,9 @@ def main():
         published = re.sub(r'!\[([^\]]*)\]\(([^\n]+?)\)',replace_image,text)
         directory = ROOT / 'content' / book['slug']
         directory.mkdir(parents=True, exist_ok=True)
+        if book['cover'] in images:
+            raise ValueError('Use a dedicated book cover, not a chapter illustration')
         (directory/'manuscript.md').write_text(published)
-        book['cover'] = images[book.pop('cover_index')]
         book['illustrations'] = images
         book['image_sizes'] = sizes
         book['source_sha256'] = hashlib.sha256(text.encode()).hexdigest()

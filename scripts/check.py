@@ -55,6 +55,9 @@ for path,page in pages.items():
 paragraph_count=0
 for meta in sorted((ROOT/'content').glob('*/book.json')):
     book=json.loads(meta.read_text())
+    assert book['cover'] not in book['illustrations'], 'Book cover must be separate from chapter illustrations'
+    assert (ROOT / book['cover'].lstrip('/')).is_file(), 'Missing dedicated cover'
+    assert book['cover_width'] > 0 and book['cover_height'] > 0, 'Missing cover dimensions'
     manuscript=(meta.parent/'manuscript.md').read_text()
     if args.source_root:
         original=(args.source_root/book['title']/(book['title']+'.md')).read_text()

@@ -5,7 +5,7 @@
   "subtitle": "Continuation / Eternal Camelot",
   "description": "图书馆里，一本坠落的书显现出一座地下堡垒。薇尔走进了 Sam、Dean 与 Castiel 尚未结束的故事。",
   "quote": "图书馆里从来没有风。",
-  "cover": "/assets/unfinished-hero/illustration-05.jpg",
+  "cover": "/assets/covers/unfinished-hero-cover-v1.jpg",
   "illustrations": [
     "/assets/unfinished-hero/illustration-01.jpg",
     "/assets/unfinished-hero/illustration-02.jpg",
@@ -56,5 +56,7 @@
       1800,
       1011
     ]
-  }
+  },
+  "cover_width": 1024,
+  "cover_height": 1536
 }

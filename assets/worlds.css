@@ -41,11 +41,11 @@
 .world-dot { width: 6px; height: 6px; border: 1px solid currentColor; border-radius: 50%; }
 .world-switcher button[aria-pressed="true"] .world-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px var(--accent); }
 .portal-stage { position: relative; width: 100%; min-width: 0; aspect-ratio: 1; display: grid; place-items: center; perspective: 1100px; }
-.world-portal { position: relative; width: 76%; aspect-ratio: .73; border-radius: 48% 48% 5px 5px; border: 1px solid rgba(var(--glow), .65); box-shadow: 0 0 55px rgba(var(--glow), .12), 0 40px 90px #0008; background: #102334; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out, box-shadow .5s; overflow: hidden; }
+.world-portal { position: relative; width: 76%; aspect-ratio: 2 / 3; border-radius: 3px; border: 1px solid rgba(var(--glow), .65); box-shadow: 0 0 55px rgba(var(--glow), .12), 0 40px 90px #0008; background: #102334; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out, box-shadow .5s; overflow: hidden; }
 .portal-images { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
 .portal-images:after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #061322f5 0, #07132055 30%, transparent 62%), linear-gradient(90deg, #07132025, transparent 40%, #07132020); }
-.portal-image { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0; transform: scale(1.1); transition: opacity 1s, transform 5s ease-out; }
-.portal-image.is-active { opacity: 1; transform: scale(1.01); }
+.portal-image { width: 100%; height: 100%; object-fit: contain; position: absolute; inset: 0; opacity: 0; transition: opacity 1s; }
+.portal-image.is-active { opacity: 1; }
 .portal-image[data-world-image="ice"] { object-position: 50% 52%; }
 .portal-image[data-world-image="amber"] { object-position: 58% 50%; }
 .portal-caption { position: absolute; z-index: 2; bottom: 30px; left: 28px; right: 20px; display: flex; flex-direction: column; gap: 9px; }
@@ -95,8 +95,8 @@
 .worlds .book-detail { padding-top: 28px; }
 .worlds .breadcrumb { color: #9db3c5; }
 .worlds .book-intro { gap: 90px; margin-block: 50px 90px; perspective: 1400px; }
-.worlds .detail-art { border: 1px solid rgba(var(--glow), .45); border-radius: 45% 45% 3px 3px; box-shadow: 0 0 70px rgba(var(--glow), .1), 0 25px 60px #0006; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out; }
-.worlds .detail-art img { aspect-ratio: .77; }
+.worlds .detail-art { border: 1px solid rgba(var(--glow), .45); border-radius: 3px; box-shadow: 0 0 70px rgba(var(--glow), .1), 0 25px 60px #0006; transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); transition: transform .3s ease-out; }
+.worlds .detail-art img { aspect-ratio: 2 / 3; object-fit: contain; max-height: none; }
 .worlds .detail-copy h1 { color: #f0f6fb; text-shadow: 0 0 50px rgba(var(--glow), .15); }
 .worlds .detail-description { color: #b0c2d0; }
 .worlds .detail-copy blockquote { border-color: rgba(var(--glow), .5); color: var(--accent); }
@@ -175,7 +175,7 @@
   .worlds .about h2 { font-size: 23px; }
   .worlds .book-intro { margin-block: 25px 45px; gap: 34px; }
   .worlds .detail-art { width: 85%; max-width: 360px; margin-inline: auto; }
-  .worlds .detail-art img { max-height: 440px; aspect-ratio: .83; }
+  .worlds .detail-art img { max-height: none; aspect-ratio: 2 / 3; }
   .worlds .detail-copy h1 { font-size: 38px; }
   .worlds .contents { padding: 22px 15px; }
   .worlds .contents .section-heading { align-items: baseline; }
@@ -203,3 +203,52 @@
 @media(hover:none) { .worlds [data-tilt] { transform: none !important; } .pointer-glow { display: none; } }
 /* Decorative orbital rings may leave their stage; clip them at the page edge. */
 .worlds main { overflow: hidden; }
+
+/* Whole-book artwork keeps its typography and original composition. */
+.portal-images:after { display: none; }
+.portal-caption { width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.portal-stage { aspect-ratio: .88; }
+.worlds .cover-link { aspect-ratio: auto; height: 440px; padding: 25px; display: flex; justify-content: center; background: radial-gradient(ellipse at 50% 35%, #42608055, #080f1a80 75%); }
+.worlds .unfinished-hero .cover-link { background: radial-gradient(ellipse at 50% 35%, #93733f40, #080f1a80 75%); }
+.worlds .cover-link img { width: auto; max-width: 100%; height: 100%; object-fit: contain; box-shadow: 0 16px 25px #0008; }
+.worlds .cover-link:after { display: none; }
+.worlds .cover-link:hover img { transform: translateY(-5px); }
+
+/* A layered sky and scroll choreography, outside the quiet chapter reader. */
+.worlds { padding-top: 94px; }
+.worlds .site-header { position: fixed; z-index: 20; top: 0; left: 0; right: 0; max-width: none; transition: height .4s, background .4s, box-shadow .4s; }
+.worlds.is-scrolled .site-header { height: 66px; background: #080f1ae8; backdrop-filter: blur(18px); box-shadow: 0 8px 30px #0003; }
+.journey-progress { position: fixed; z-index: 21; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #8fa7f8, var(--accent), #fff); box-shadow: 0 0 12px var(--accent); transform: scaleX(var(--journey, 0)); transform-origin: left; pointer-events: none; }
+.aurora { opacity: .34; }
+.aurora-three { width: 80vw; height: 45vh; bottom: -22vh; right: -15vw; background: radial-gradient(ellipse, rgba(var(--glow), .5), transparent 70%); animation: aurora-drift 26s ease-in-out infinite alternate-reverse; }
+.sky-ribbon { position: absolute; inset: -30%; opacity: .38; background: repeating-conic-gradient(from 210deg at 70% 40%, transparent 0deg 25deg, rgba(var(--glow), .12) 32deg, rgba(var(--secondary), .12) 36deg, transparent 44deg 75deg); filter: blur(35px); transform-origin: 70% 40%; animation: ribbon-flow 30s ease-in-out infinite alternate; }
+.atmosphere { translate: 0 var(--sky-y, 0px); inset: -60px 0; }
+.atmosphere canvas { top: 60px; height: calc(100% - 120px); }
+.portal-stage { translate: 0 var(--portal-y, 0px); }
+.hero-copy { translate: 0 var(--copy-y, 0px); }
+.hero-copy h1 em { background-size: 200% 100%; animation: title-light 9s ease-in-out infinite alternate; }
+.worlds [data-reveal] { transition: opacity .9s ease, translate .9s cubic-bezier(.2,.7,.2,1), filter .9s ease, border-color .35s, box-shadow .35s, transform .35s; transition-delay: var(--reveal-delay, 0ms); }
+.worlds[data-motion="on"] [data-reveal="waiting"] { opacity: 0; translate: 0 42px; filter: blur(5px); }
+.worlds [data-reveal]:focus-within { opacity: 1; translate: none; filter: none; }
+.fragment-art img { height: 370px; margin-block: -25px; translate: 0 var(--fragment-y, 0px); }
+.worlds .library, .worlds .about, .worlds .contents { scroll-margin-top: 90px; }
+.worlds[data-motion="off"] .atmosphere, .worlds[data-motion="off"] .portal-stage, .worlds[data-motion="off"] .hero-copy, .worlds[data-motion="off"] .fragment-art img, .worlds[data-motion="off"] [data-reveal] { translate: none; filter: none; opacity: 1; }
+.worlds[data-motion="off"] .aurora { filter: blur(75px); }
+.worlds[data-motion="off"] .sky-ribbon { filter: blur(35px); }
+@keyframes ribbon-flow { from { transform: rotate(-12deg) scale(1); } to { transform: rotate(12deg) scale(1.18); } }
+@keyframes title-light { to { background-position: 100% 0; } }
+@media(max-width:720px) {
+  .worlds { padding-top: 76px; }
+  .worlds.is-scrolled .site-header { height: 62px; }
+  .worlds .cover-link { height: 400px; padding: 22px; }
+  .portal-stage { aspect-ratio: .8; }
+  .sky-ribbon { filter: blur(25px); opacity: .3; }
+  .fragment-art img { height: 310px; }
+}
+@media(max-width:360px) { .worlds .cover-link { height: 350px; padding: 18px; } }
+@media(prefers-reduced-motion:reduce) {
+  .worlds .atmosphere, .worlds .portal-stage, .worlds .hero-copy, .worlds .fragment-art img, .worlds [data-reveal] { translate: none !important; opacity: 1 !important; filter: none; }
+}
+
+html:has(.worlds[data-motion="on"]) { scroll-behavior: smooth; }
+@media(prefers-reduced-motion:reduce) { html:has(.worlds) { scroll-behavior: auto; } }
