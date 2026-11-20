@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qr-w.github.io/sitemap.xml
